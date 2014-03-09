@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.Chart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javax.swing.JTextField;
 
 /**
  *
@@ -31,9 +30,10 @@ public class FXMLDocumentController implements Initializable {
         // TODO
     }  
     
-    @FXML public void generarReporte(ActionEvent E){
+    @FXML private void generarReporte(ActionEvent E){
         //System.out.println(""+txtcliente.getText().toString());
-        txtcliente.setText("COSA");
+        String hola=txtcliente.getText().toString();
+        System.out.println(""+hola);
     }
     
     public void salir(){

@@ -156,7 +156,7 @@
                                   <content>
                                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="236.0" prefWidth="654.0">
                                       <children>
-                                        <TextField id="txtcliente" layoutX="112.0" layoutY="29.0" prefWidth="168.0" text="Todos" />
+                                        <TextField fx:id="txtcliente" layoutX="112.0" layoutY="29.0" prefWidth="168.0" text="Todos" />
                                         <Label layoutX="28.0" layoutY="33.0" prefWidth="62.0" text="Cliente :" />
                                         <Label layoutX="31.0" layoutY="61.0" text="Ciudad :" />
                                         <TextField id="tfciudad" layoutX="113.0" layoutY="57.0" prefWidth="166.00009999999747" text="Todos" />
@@ -174,7 +174,7 @@
                                             <MenuItem mnemonicParsing="false" text="Action 2" />
                                           </items>
                                         </MenuButton>
-                                        <Button id="boton" layoutX="242.0" layoutY="123.0" mnemonicParsing="false" onAction="#generarReporte" text="Button" />
+                                        <Button id="boton" fx:id="botonge" layoutX="242.0" layoutY="123.0" mnemonicParsing="false" onAction="#generarReporte" text="Boton" />
                                       </children>
                                     </AnchorPane>
                                   </content>
