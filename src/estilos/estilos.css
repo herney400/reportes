@@ -1,0 +1,39 @@
+ 
+.root{
+     -fx-background-image: url("/imagenes/background.jpg");
+    
+    
+}
+
+ .label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#3385ff, #3385ff);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:hover {
+    -fx-background-color:  #3385ff
+}
+.MenuButton {
+    -fx-background-color: linear-gradient(#3385ff, #3385ff);
+    
+}
+.titled-pane:expanded .title .arrow-button .arrow {
+-fx-background-color : red;
+-fx-border-color: chartreuse;
+   
+}
+.BarChart{
+    
+    -fx-background: red;
+    -fx-background-image: url("background.jpg");
+}
