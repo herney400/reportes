@@ -133,19 +133,12 @@
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="573.0" prefWidth="655.0">
                   <children>
-                    <SplitPane dividerPositions="0.5" focusTraversable="true" layoutX="0.0" layoutY="0.0" orientation="VERTICAL" prefHeight="576.0" prefWidth="658.0">
+                    <SplitPane dividerPositions="0.578397212543554" focusTraversable="true" layoutX="0.0" layoutY="0.0" orientation="VERTICAL" prefHeight="576.0" prefWidth="658.0">
                       <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="656.0">
                           <children>
                             <ScrollBar layoutX="642.0" layoutY="2.0" orientation="VERTICAL" prefHeight="284.0" />
-                            <BarChart id="mibarchar" layoutX="13.0" layoutY="-9.0" prefHeight="295.0" prefWidth="625.0">
-                              <xAxis>
-                                <CategoryAxis id="xbarchart" side="BOTTOM" />
-                              </xAxis>
-                              <yAxis>
-                                <NumberAxis id="ybarchart" side="LEFT" />
-                              </yAxis>
-                            </BarChart>
+                            <PieChart id="PieChart" fx:id="mibarchar" layoutX="58.0" layoutY="6.0" prefHeight="317.0" />
                           </children>
                         </AnchorPane>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="124.0" prefWidth="656.0">
@@ -249,21 +242,21 @@
             </Tab>
             <Tab text="Historico Pagos">
               <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="454.0" prefWidth="655.0">
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="655.0">
                   <children>
-                    <SplitPane dividerPositions="0.5" focusTraversable="true" layoutX="0.0" layoutY="0.0" orientation="VERTICAL" prefHeight="570.0" prefWidth="658.0">
+                    <SplitPane dividerPositions="0.49471830985915494" focusTraversable="true" layoutX="0.0" layoutY="0.0" orientation="VERTICAL" prefHeight="570.0" prefWidth="658.0">
                       <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="656.0">
                           <children>
                             <ScrollBar layoutX="642.0" layoutY="2.0" orientation="VERTICAL" prefHeight="284.0" />
-                            <BarChart layoutX="13.0" layoutY="-9.0" prefHeight="295.0" prefWidth="625.0">
+                            <LineChart fx:id="graph" layoutX="0.0" layoutY="0.0" prefHeight="307.0" prefWidth="638.0">
                               <xAxis>
-                                <CategoryAxis side="BOTTOM" />
+                                <NumberAxis fx:id="xAxis" label="Values for X-Axis" lowerBound="0.0" tickUnit="1.0" upperBound="3.0" />
                               </xAxis>
                               <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis fx:id="yAxis" label="Values for Y-Axis" lowerBound="0.0" tickUnit="1.0" upperBound="3.0" />
                               </yAxis>
-                            </BarChart>
+                            </LineChart>
                           </children>
                         </AnchorPane>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="124.0" prefWidth="656.0">
@@ -292,13 +285,14 @@
                                             <MenuItem mnemonicParsing="false" text="Action 2" />
                                           </items>
                                         </MenuButton>
+                                        <Button id="" fx:id="blinechart" layoutX="271.0" layoutY="122.0" mnemonicParsing="false" onAction="#reporteLine" text="Button" />
                                       </children>
                                     </AnchorPane>
                                   </content>
                                 </TitledPane>
                               </expandedPane>
                               <panes>
-                                <TitledPane animated="false" prefHeight="262.0" prefWidth="655.0" text="Filtros Generales">
+                                <TitledPane animated="false" prefHeight="212.0" prefWidth="658.0" text="Filtros Generales">
                                   <content>
                                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="236.0" prefWidth="654.0">
                                       <children>
@@ -324,7 +318,7 @@
                                     </AnchorPane>
                                   </content>
                                 </TitledPane>
-                                <TitledPane animated="false" text="Filtros Demograficos">
+                                <TitledPane fx:id="x5" animated="false" text="Filtros Demograficos">
                                   <content>
                                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                       <children>

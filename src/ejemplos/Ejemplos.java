@@ -39,7 +39,7 @@ public class Ejemplos extends Application {
         
         
     }
-    
+   
 
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
