@@ -47,52 +47,45 @@ public class FXMLDocumentController implements Initializable {
         // TODO
     }  
     
-    @FXML private void generarReporte(ActionEvent E){
-        //System.out.println(""+txtcliente.getText().toString());
+    @FXML private void generarReporte(ActionEvent E){        
         ObservableList<PieChart.Data> pieChartData =FXCollections.observableArrayList(
             new PieChart.Data("Executed", 60),
             new PieChart.Data("Passed", 25),
             new PieChart.Data("Fails", 15),
             new PieChart.Data("Coronamos", 15)
-        );
-
-    mibarchar.setData(pieChartData);
-
+        ); 
+    mibarchar.setData(pieChartData); 
 }
     @FXML private void reporteLine(ActionEvent E){
-    ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();
-
-        // Instanciamos un punto a pintar
-        LineChart.Series<Double, Double> series = new LineChart.Series<Double, Double>();
-
-        // Imprimimos la función que vamos a pintar
+    ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();  
+        LineChart.Series<Double, Double> series = new LineChart.Series<Double, Double>(); 
        for (double i = 0; i<100; i=i+0.1){
             series.getData().add(new XYChart.Data<Double, Double>(i, (i*2)-6));
-        }
-       
+        } 
         lineChartData.add(series);
-        graph.setCreateSymbols(true);
-
-        // Ponemos los puntos en la gráfica
+        graph.setCreateSymbols(true); 
         graph.setData(lineChartData);
         graph.createSymbolsProperty();
     }
     
     @FXML private void reportePrecio(ActionEvent e){
+        final NumberAxis xAxis = new NumberAxis(1, 53, 4);
+        final NumberAxis yAxis = new NumberAxis(0, 80, 10);
+        
      ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();
        BubbleChart.Series<Double,Double>series=new BubbleChart.Series<Double, Double>();
 //        for (double i = 0; i < 100; i++) {
-            series.getData().add(new XYChart.Data<Double, Double>(3.1, 35.2));
-            series.getData().add(new XYChart.Data<Double, Double>(2.1, 5.2));
-            series.getData().add(new XYChart.Data<Double, Double>(1.1, 3.2));
-            series.getData().add(new XYChart.Data<Double, Double>(4.1, 4.2));
-//        }
-                
+            series.getData().add(new XYChart.Data(8, 15, 2));
+            series.getData().add(new XYChart.Data(13, 23, 1));
+            series.getData().add(new XYChart.Data(15, 45, 3));
+            series.getData().add(new XYChart.Data(24, 30, 4.5));
+            series.getData().add(new XYChart.Data(38, 78, 1));
+            series.getData().add(new XYChart.Data(40, 41, 7.5));
+            series.getData().add(new XYChart.Data(45, 57, 2));
+            series.getData().add(new XYChart.Data(47, 23, 3.8));
+//        } 
          lineChartData.add(series);
-         buble.setData(lineChartData);
-         
-    
-    
+         buble.setData(lineChartData);          
     }
     
     public void salir(){
