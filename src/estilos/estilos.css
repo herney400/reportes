@@ -37,14 +37,14 @@
     -fx-background: red;
     -fx-background-image: url("background.jpg");
 } 
-
+//desde aqui 
 .chart {
     -fx-padding: 10px;
-    -fx-background-image: url("icon.png");   
+    -fx-background-image: url("background.jpg");   
 }
-.chart-content {
+/*.chart-content {
     -fx-padding: 30px;    
-}
+}*/
  
 .chart-title {
   -fx-text-fill: #4682b4;
@@ -55,13 +55,13 @@
   -fx-text-fill: #4682b4;
 }
  
-.chart-legend {
+/*.chart-legend {
    -fx-background-color:  transparent;
    -fx-padding: 20px;
-}
+}*/
  
 .chart-legend-item-symbol{
-   -fx-background-radius: 0;
+   -fx-background-radius: 20;
 }
  
 .chart-legend-item{
