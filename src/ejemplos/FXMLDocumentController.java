@@ -59,10 +59,45 @@ public class FXMLDocumentController implements Initializable {
     @FXML private void reporteLine(ActionEvent E){
     ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();  
         LineChart.Series<Double, Double> series = new LineChart.Series<Double, Double>(); 
-       for (double i = 0; i<100; i=i+0.1){
-            series.getData().add(new XYChart.Data<Double, Double>(i, (i*2)-6));
-        } 
-        lineChartData.add(series);
+        LineChart.Series<Double, Double> series3 = new LineChart.Series<Double, Double>();
+//       for (double i = 0; i<100; i=i+0.1){
+//            series.getData().add(new XYChart.Data<Double, Double>(i, (i*2)-6));
+//        } 
+       series.getData().add(new XYChart.Data(1, 23));
+        series.getData().add(new XYChart.Data(2, 14));
+        series.getData().add(new XYChart.Data(3, 15));
+        series.getData().add(new XYChart.Data(4, 24));
+        series.getData().add(new XYChart.Data(5, 34));
+        series.getData().add(new XYChart.Data(6, 36));
+        series.getData().add(new XYChart.Data(7, 22));
+        series.getData().add(new XYChart.Data(8, 45));
+        series.getData().add(new XYChart.Data(9, 43));
+        series.getData().add(new XYChart.Data(10, 17));
+        series.getData().add(new XYChart.Data(11, 29));
+        series.getData().add(new XYChart.Data(12, 25));
+       
+        
+        series3.setName("Portfolio 3");
+        series3.getData().add(new XYChart.Data(12, 44));
+        series3.getData().add(new XYChart.Data(11, 35));
+        series3.getData().add(new XYChart.Data(10, 36));
+        series3.getData().add(new XYChart.Data(9, 33));
+        series3.getData().add(new XYChart.Data(8, 31));
+        series3.getData().add(new XYChart.Data(7, 26));
+        series3.getData().add(new XYChart.Data(6, 22));
+        series3.getData().add(new XYChart.Data(5, 25));
+        series3.getData().add(new XYChart.Data(4, 43));
+        series3.getData().add(new XYChart.Data(3, 44));
+        series3.getData().add(new XYChart.Data(2, 45));
+        series3.getData().add(new XYChart.Data(1, 44));
+       
+       
+       
+       
+       
+       
+       
+        lineChartData.addAll(series,series3);
         graph.setCreateSymbols(true); 
         graph.setData(lineChartData);
         graph.createSymbolsProperty();
