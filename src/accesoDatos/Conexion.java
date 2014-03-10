@@ -6,116 +6,70 @@
 
 package accesoDatos;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Lucy
  */
 public class Conexion {
-
-    static String baseDatos = "trabajodegrado";
-    static String puerto = "5432";
-    static String usuario = "postgres";
-    static String clave = "tesis";
-    static String ip = "localhost";
-
-    public static ResultSet consultar (String consulta) throws Exception
-    {
-        ResultSet reg = null; 
-        Connection conex  = null;
-        Statement SQL = null;
-        
-        try
-        {
-            conex=conexion();
-            SQL = conex.createStatement (ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            reg = SQL.executeQuery(consulta);
-        }
-        catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }        
-        return reg;
-    }
     
-    public static Connection conexion()
-    {
-        Connection conex = null;
-        String URL = "jdbc:postgresql://localhost:5432/trabajodegrado";
+    static String url = "jdbc:postgresql://localhost/trabajodegrado";
+    static String user = "postgres";
+    static String password = "tesis";
+    
+    public ResultSet EjecutarConsulta(String consulta, Object[] datos, String[] tipos) {
 
-        try
-        {
-            Class.forName("org.postgresql.Driver" );
-            conex = DriverManager.getConnection(URL, "postgres", "tesis" );
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            pst = con.prepareStatement(consulta);
+            
+            int i;
+            int tam = datos.length;
+            for(i = 1; i <= tam; i++)
+            {
+                if(tipos[i].equals("string"))
+                {
+                    pst.setString(i, datos[i].toString());
+                }
+                if(tipos[i].equals("int"))
+                {
+                    pst.setInt(i, Integer.parseInt(datos[i].toString()));
+                }
+                if(tipos[i].equals("double"))
+                {
+                    pst.setDouble(i, Double.parseDouble(datos[i].toString()));
+                }
+            }            
+            rs = pst.executeQuery();
         } 
-        catch (ClassNotFoundException | SQLException ex) 
-        {
-            System.out.println(ex.getMessage());
+        catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
-        return conex;
-    }
-    
-    public int ejecutar(String consulta)
-    {
-        int conclusion = -1;
-        Connection conex;
-        Statement sql = null;
-        try
-        {
-            conex = conexion();
-            sql = conex.createStatement();
-            sql.executeUpdate(consulta);
-            sql.close();
-            conex.close();
-            conclusion = 1;
-        }
-        catch(SQLException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        return conclusion;
-    }
+        finally {
 
-    public static boolean verificar(String x, String campo, String tabla)
-    {
-        ResultSet reg;
-        try
-        {
-            String consulta = "Select count ("+campo+" ) from "+tabla+" where "+campo+" = '"+x+"'";
-            reg = consultar(consulta);
-            reg.first();
-            int n = reg.getInt(1);
-            if (n>0)
-            {
-                return true; 
-            }
-            else
-            {
-                return false;
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
-        catch(Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return false;
+        return rs;
     }
-
-    public ResultSet Registros(String consulta)
-    {
-        ResultSet reg=null;
-        Connection conex=null;
-        Statement sql=null;
-        try
-        {
-            conex=conexion();
-            sql=conex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-            reg=sql.executeQuery(consulta);
-        }catch(SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return reg;
-    } 
-    
 }
