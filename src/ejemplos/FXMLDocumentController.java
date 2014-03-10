@@ -13,7 +13,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.DepthTest;
 import javafx.scene.Scene;
+import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -36,6 +38,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML private NumberAxis xAxis, yAxis;
     @FXML private Button blinechart;
      @FXML private LineChart<Double, Double> graph;
+     @FXML private BubbleChart<Double, Double> buble;
     @FXML private NumberAxis x;
     @FXML private NumberAxis y;
 //    @FXML private LineChart<String, Number> graph;      
@@ -64,7 +67,7 @@ public class FXMLDocumentController implements Initializable {
 
         // Imprimimos la función que vamos a pintar
        for (double i = 0; i<100; i=i+0.1){
-            series.getData().add(new XYChart.Data<Double, Double>(i, Math.pow(i, 2)));
+            series.getData().add(new XYChart.Data<Double, Double>(i, (i*2)-6));
         }
        
         lineChartData.add(series);
@@ -73,6 +76,23 @@ public class FXMLDocumentController implements Initializable {
         // Ponemos los puntos en la gráfica
         graph.setData(lineChartData);
         graph.createSymbolsProperty();
+    }
+    
+    @FXML private void reportePrecio(ActionEvent e){
+     ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();
+       BubbleChart.Series<Double,Double>series=new BubbleChart.Series<Double, Double>();
+//        for (double i = 0; i < 100; i++) {
+            series.getData().add(new XYChart.Data<Double, Double>(3.1, 35.2));
+            series.getData().add(new XYChart.Data<Double, Double>(2.1, 5.2));
+            series.getData().add(new XYChart.Data<Double, Double>(1.1, 3.2));
+            series.getData().add(new XYChart.Data<Double, Double>(4.1, 4.2));
+//        }
+                
+         lineChartData.add(series);
+         buble.setData(lineChartData);
+         
+    
+    
     }
     
     public void salir(){
