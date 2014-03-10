@@ -63,6 +63,7 @@ public class FXMLDocumentController implements Initializable {
 //       for (double i = 0; i<100; i=i+0.1){
 //            series.getData().add(new XYChart.Data<Double, Double>(i, (i*2)-6));
 //        } 
+        series3.setName("Portfolio 1");
        series.getData().add(new XYChart.Data(1, 23));
         series.getData().add(new XYChart.Data(2, 14));
         series.getData().add(new XYChart.Data(3, 15));
@@ -77,7 +78,7 @@ public class FXMLDocumentController implements Initializable {
         series.getData().add(new XYChart.Data(12, 25));
        
         
-        series3.setName("Portfolio 3");
+        series3.setName("Portfolio 2");
         series3.getData().add(new XYChart.Data(12, 44));
         series3.getData().add(new XYChart.Data(11, 35));
         series3.getData().add(new XYChart.Data(10, 36));

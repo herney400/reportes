@@ -244,12 +244,12 @@
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="655.0">
                   <children>
-                    <SplitPane dividerPositions="0.49471830985915494" focusTraversable="true" layoutX="0.0" layoutY="0.0" orientation="VERTICAL" prefHeight="570.0" prefWidth="658.0">
+                    <SplitPane dividerPositions="0.6672535211267606" focusTraversable="true" layoutX="1.0" layoutY="6.0" orientation="VERTICAL" prefHeight="570.0" prefWidth="658.0">
                       <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="656.0">
                           <children>
                             <ScrollBar layoutX="642.0" layoutY="2.0" orientation="VERTICAL" prefHeight="284.0" />
-                            <LineChart fx:id="graph" layoutX="13.0" layoutY="0.0" prefHeight="307.0" prefWidth="625.0">
+                            <LineChart id="line" fx:id="graph" layoutX="23.0" layoutY="0.0" prefHeight="347.0" prefWidth="619.0">
                               <xAxis>
                                 <NumberAxis fx:id="xAxis" label="Values for X-Axis" lowerBound="0.0" tickUnit="1.0" upperBound="3.0" />
                               </xAxis>
@@ -285,7 +285,7 @@
                                             <MenuItem mnemonicParsing="false" text="Action 2" />
                                           </items>
                                         </MenuButton>
-                                        <Button id="" fx:id="blinechart" layoutX="271.0" layoutY="122.0" mnemonicParsing="false" onAction="#reporteLine" text="Button" />
+                                        <Button id="" fx:id="blinechart" layoutX="271.0" layoutY="97.0" mnemonicParsing="false" onAction="#reporteLine" text="Button" />
                                       </children>
                                     </AnchorPane>
                                   </content>
@@ -367,7 +367,7 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="656.0">
                           <children>
                             <ScrollBar layoutX="642.0" layoutY="2.0" orientation="VERTICAL" prefHeight="284.0" />
-                            <BubbleChart id="blc" fx:id="buble" layoutX="0.0" layoutY="2.0" prefHeight="281.0" prefWidth="640.0">
+                            <BubbleChart fx:id="buble" layoutX="0.0" layoutY="2.0" prefHeight="281.0" prefWidth="640.0" style=".chart {&#10;    -fx-padding: 10px;&#10;}&#10;">
                               <xAxis>
                                 <NumberAxis label="Values for X-Axis" lowerBound="0.0" tickUnit="1.0" upperBound="3.0" />
                               </xAxis>
