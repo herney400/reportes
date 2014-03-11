@@ -26,18 +26,14 @@ public class Ejemplos extends Application {
    
     public void start(Stage stage) throws Exception {
         
-        
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/FXMLDocument.fxml"));
         stage.initStyle(StageStyle.DECORATED);
         Scene scene;
         scene = new Scene(root);
-        
          
         scene.getStylesheets().add(Ejemplos.class.getResource("/estilos/estilos.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
-        
-        
     }
    
 

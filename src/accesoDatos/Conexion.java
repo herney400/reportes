@@ -6,6 +6,7 @@
 
 package accesoDatos;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,31 +27,38 @@ public class Conexion {
         ResultSet rs = null;
 
         try {
+            Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection(url, user, password);
             pst = con.prepareStatement(consulta);
             
             int i;
-            int tam = datos.length;
-            for(i = 1; i <= tam; i++)
+            
+            if(datos != null)
             {
-                if(tipos[i].equals("string"))
+                int tam = datos.length;
+                for(i = 1; i <= tam; i++)
                 {
-                    pst.setString(i, datos[i].toString());
-                }
-                if(tipos[i].equals("int"))
-                {
-                    pst.setInt(i, Integer.parseInt(datos[i].toString()));
-                }
-                if(tipos[i].equals("double"))
-                {
-                    pst.setDouble(i, Double.parseDouble(datos[i].toString()));
-                }
-            }            
+                    if(tipos[i].equals("string"))
+                    {
+                        pst.setString(i, datos[i].toString());
+                    }
+                    if(tipos[i].equals("int"))
+                    {
+                        pst.setInt(i, Integer.parseInt(datos[i].toString()));
+                    }
+                    if(tipos[i].equals("double"))
+                    {
+                        pst.setDouble(i, Double.parseDouble(datos[i].toString()));
+                    }
+                }  
+            }
             rs = pst.executeQuery();
         } 
         catch (SQLException ex) {
                 Logger lgr = Logger.getLogger(Conexion.class.getName());
                 lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
 
@@ -71,5 +79,49 @@ public class Conexion {
             }
         }
         return rs;
+    }
+    
+    public ArrayList<String> EjecutarConsultaComboBox(String consulta) {
+
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        ArrayList<String> resultado = new ArrayList<>(0);
+
+        try {
+            Class.forName("org.postgresql.Driver");
+            con = DriverManager.getConnection(url, user, password);
+            pst = con.prepareStatement(consulta);
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+                resultado.add(rs.getString(1));
+            }
+        } 
+        catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+        return resultado;
     }
 }

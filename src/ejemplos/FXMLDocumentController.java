@@ -6,8 +6,14 @@
 
 package ejemplos;
 
+import accesoDatos.Conexion;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +28,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -34,18 +41,27 @@ public class FXMLDocumentController implements Initializable {
     @FXML private Label label;    
     @FXML private PieChart mibarchar ;
     @FXML private TextField txtcliente;
-   // @FXML private LineChart graph;
+    //@FXML private LineChart graph;
     @FXML private NumberAxis xAxis, yAxis;
     @FXML private Button blinechart;
-     @FXML private LineChart<Double, Double> graph;
-     @FXML private BubbleChart<Double, Double> buble;
+    @FXML private LineChart<Double, Double> graph;
+    @FXML private BubbleChart<Double, Double> buble;
     @FXML private NumberAxis x;
     @FXML private NumberAxis y;
-//    @FXML private LineChart<String, Number> graph;      
+    //@FXML private LineChart<String, Number> graph;
+    
+    //Consultas ComboBox
+    @FXML private ComboBox comboBox_Franja;    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO       
+        
     }  
+    
+    @FXML private void llenarFranja(ActionEvent e){
+        
+    }
     
     @FXML private void generarReporte(ActionEvent E){        
         ObservableList<PieChart.Data> pieChartData =FXCollections.observableArrayList(
@@ -54,17 +70,18 @@ public class FXMLDocumentController implements Initializable {
             new PieChart.Data("Fails", 15),
             new PieChart.Data("Coronamos", 15)
         ); 
-    mibarchar.setData(pieChartData); 
-}
+        mibarchar.setData(pieChartData); 
+    }
+    
     @FXML private void reporteLine(ActionEvent E){
-    ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();  
+        ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();  
         LineChart.Series<Double, Double> series = new LineChart.Series<Double, Double>(); 
         LineChart.Series<Double, Double> series3 = new LineChart.Series<Double, Double>();
 //       for (double i = 0; i<100; i=i+0.1){
 //            series.getData().add(new XYChart.Data<Double, Double>(i, (i*2)-6));
 //        } 
         series3.setName("Portfolio 1");
-       series.getData().add(new XYChart.Data(1, 23));
+        series.getData().add(new XYChart.Data(1, 23));
         series.getData().add(new XYChart.Data(2, 14));
         series.getData().add(new XYChart.Data(3, 15));
         series.getData().add(new XYChart.Data(4, 24));
@@ -108,8 +125,8 @@ public class FXMLDocumentController implements Initializable {
         final NumberAxis xAxis = new NumberAxis(1, 53, 4);
         final NumberAxis yAxis = new NumberAxis(0, 80, 10);
         
-     ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();
-       BubbleChart.Series<Double,Double>series=new BubbleChart.Series<Double, Double>();
+        ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();
+        BubbleChart.Series<Double,Double>series=new BubbleChart.Series<Double, Double>();
 //        for (double i = 0; i < 100; i++) {
             series.getData().add(new XYChart.Data(8, 15, 2));
             series.getData().add(new XYChart.Data(13, 23, 1));
@@ -126,5 +143,16 @@ public class FXMLDocumentController implements Initializable {
     
     public void salir(){
         System.exit(0);
+    }
+    
+    public void setData(){
+        Conexion con = new Conexion();
+        ArrayList<String> rs = con.EjecutarConsultaComboBox("select distinct franja_horaria as franja from tiempo;");
+        comboBox_Franja = new ComboBox();
+        
+        for(int i = 0; i<rs.size(); i++)
+        {
+            comboBox_Franja.getItems().add(rs.get(i));
+        }
     }
 }
