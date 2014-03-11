@@ -7,6 +7,7 @@
 package ejemplos;
 
 import accesoDatos.Conexion;
+
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,6 +32,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import static javafx.scene.input.KeyCode.E;
 
 /**
  *
@@ -64,12 +66,11 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML private void generarReporte(ActionEvent E){        
-        ObservableList<PieChart.Data> pieChartData =FXCollections.observableArrayList(
-            new PieChart.Data("Executed", 60),
-            new PieChart.Data("Passed", 25),
-            new PieChart.Data("Fails", 15),
-            new PieChart.Data("Coronamos", 15)
-        ); 
+        
+        Conexion con = new Conexion();        
+        ObservableList<PieChart.Data> pieChartData = con.EjecutarConsultaPieChart("select sum(cast(total_consumo as numeric)) as consumo, (select ciudad from ciudad where ciudad.id_ciudad = historico_consumo.id_ciudad) as ciudad\n" +
+                                                                                "from historico_consumo\n" +
+                                                                                "group by ciudad");        
         mibarchar.setData(pieChartData); 
     }
     
@@ -79,8 +80,8 @@ public class FXMLDocumentController implements Initializable {
         LineChart.Series<Double, Double> series3 = new LineChart.Series<Double, Double>();
 //       for (double i = 0; i<100; i=i+0.1){
 //            series.getData().add(new XYChart.Data<Double, Double>(i, (i*2)-6));
-//        } 
-        series3.setName("Portfolio 1");
+//        }        
+        series.setName("Portfolio 1");
         series.getData().add(new XYChart.Data(1, 23));
         series.getData().add(new XYChart.Data(2, 14));
         series.getData().add(new XYChart.Data(3, 15));

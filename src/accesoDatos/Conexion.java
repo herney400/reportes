@@ -9,6 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 
 /**
  *
@@ -96,6 +99,94 @@ public class Conexion {
             while(rs.next())
             {
                 resultado.add(rs.getString(1));
+            }
+        } 
+        catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+        return resultado;
+    }
+    
+    public ObservableList EjecutarConsultaPieChart(String consulta) {
+
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        ObservableList resultado = FXCollections.observableArrayList();
+
+        try {
+            Class.forName("org.postgresql.Driver");
+            con = DriverManager.getConnection(url, user, password);
+            pst = con.prepareStatement(consulta);
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+                resultado.add(new PieChart.Data(rs.getString(2),rs.getInt(1)));
+            }
+        } 
+        catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+        return resultado;
+    }
+    
+    public ObservableList EjecutarConsultaXYChart(String consulta) {
+
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        ObservableList resultado = FXCollections.observableArrayList();
+
+        try {
+            Class.forName("org.postgresql.Driver");
+            con = DriverManager.getConnection(url, user, password);
+            pst = con.prepareStatement(consulta);
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+                resultado.add(new PieChart.Data(rs.getString(2),rs.getInt(1)));
             }
         } 
         catch (SQLException ex) {
