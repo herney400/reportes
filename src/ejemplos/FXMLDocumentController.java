@@ -7,25 +7,18 @@
 package ejemplos;
 
 import accesoDatos.Conexion;
+import eu.schudt.javafx.controls.calendar.DatePicker;
 
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.DepthTest;
-import javafx.scene.Scene;
 import javafx.scene.chart.BubbleChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -33,10 +26,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import static javafx.scene.input.KeyCode.E;
+import javafx.scene.layout.GridPane;
 
 /**
  *
@@ -55,17 +46,21 @@ public class FXMLDocumentController implements Initializable {
     @FXML private NumberAxis x;
     @FXML private NumberAxis y;
     @FXML private ComboBox<String> combo;
-   
+    @FXML private GridPane gridpane;
     //@FXML private LineChart<String, Number> graph;
     
     //Consultas ComboBox
     @FXML private ComboBox comboBox_Franja;    
-    
+    @FXML private  DatePicker dp;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        assert combo != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
-       
+      
         
+        assert combo != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+       // assert gridpane != null : "fx:id=\"dp\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+      dp=  new DatePicker(Locale.ENGLISH);
+         
+         gridpane.add(dp, 0, 0);
     }  
     
     @FXML private void llenarFranja(ActionEvent e){
@@ -77,16 +72,10 @@ public class FXMLDocumentController implements Initializable {
         Conexion con = new Conexion();        
         ObservableList<PieChart.Data> pieChartData = con.EjecutarConsultaPieChart("select sum(cast(total_consumo as numeric)) as consumo, (select ciudad from ciudad where ciudad.id_ciudad = historico_consumo.id_ciudad) as ciudad\n" +
                                                                                   "from historico_consumo\n" +
-                                                                                  "group by ciudad");        
-        
-       
-          combo.getItems().clear();
-          combo.getItems().addAll("herney ", "lucho");
-          
+                                                                                  "group by ciudad");                
+        combo.getItems().clear();
         ObservableList<String> datosCombo=con.llenarCommbo("select ciudad from ciudad");
         combo.setItems(datosCombo);
-        
-        
         mibarchar.setData(pieChartData); 
         
     }
