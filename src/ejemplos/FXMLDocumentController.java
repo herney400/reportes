@@ -58,6 +58,7 @@ public class FXMLDocumentController implements Initializable {
         
         assert combo != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
        // assert gridpane != null : "fx:id=\"dp\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+    //    dp.getStylesheets().add("/estilos/DatePicker.css");
       dp=  new DatePicker(Locale.ENGLISH);
          
          gridpane.add(dp, 0, 0);
