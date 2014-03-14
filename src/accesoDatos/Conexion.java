@@ -19,7 +19,7 @@ import javafx.scene.chart.PieChart;
  */
 public class Conexion {
     
-    static String url = "jdbc:postgresql://localhost/trabajodegrado";
+    static String url = "jdbc:postgresql://localhost/postgres";
     static String user = "postgres";
     static String password = "tesis";
     
@@ -215,4 +215,57 @@ public class Conexion {
         }
         return resultado;
     }
+    public ObservableList llenarCommbo(String consulta){
+    
+    ObservableList resultado = FXCollections.observableArrayList();
+        
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            con = DriverManager.getConnection(url, user, password);
+            pst = con.prepareStatement(consulta);
+            rs = pst.executeQuery();
+        
+            while(rs.next())
+            {
+               resultado.addAll(rs.getString(1));
+               
+            }
+        } 
+        catch (SQLException ex){
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Conexion.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+    
+    
+    
+    return resultado;
+    
+    }
+    
+    
+    
+    
 }

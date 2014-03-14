@@ -33,6 +33,10 @@ public class Ejemplos extends Application {
          
         scene.getStylesheets().add(Ejemplos.class.getResource("/estilos/estilos.css").toExternalForm());
         stage.setScene(scene);
+        stage.setMinWidth(900);
+        stage.setMinHeight(800);
+        stage.setMaxHeight(900);
+        stage.setMaxWidth(800);
         stage.show();
     }
    

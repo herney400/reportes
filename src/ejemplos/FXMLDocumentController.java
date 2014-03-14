@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +33,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import static javafx.scene.input.KeyCode.E;
 
@@ -50,6 +54,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML private BubbleChart<Double, Double> buble;
     @FXML private NumberAxis x;
     @FXML private NumberAxis y;
+    @FXML private ComboBox<String> combo;
+   
     //@FXML private LineChart<String, Number> graph;
     
     //Consultas ComboBox
@@ -57,7 +63,8 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO       
+        assert combo != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+       
         
     }  
     
@@ -69,9 +76,19 @@ public class FXMLDocumentController implements Initializable {
         
         Conexion con = new Conexion();        
         ObservableList<PieChart.Data> pieChartData = con.EjecutarConsultaPieChart("select sum(cast(total_consumo as numeric)) as consumo, (select ciudad from ciudad where ciudad.id_ciudad = historico_consumo.id_ciudad) as ciudad\n" +
-                                                                                "from historico_consumo\n" +
-                                                                                "group by ciudad");        
+                                                                                  "from historico_consumo\n" +
+                                                                                  "group by ciudad");        
+        
+       
+          combo.getItems().clear();
+          combo.getItems().addAll("herney ", "lucho");
+          
+        ObservableList<String> datosCombo=con.llenarCommbo("select ciudad from ciudad");
+        combo.setItems(datosCombo);
+        
+        
         mibarchar.setData(pieChartData); 
+        
     }
     
     @FXML private void reporteLine(ActionEvent E){
@@ -110,12 +127,7 @@ public class FXMLDocumentController implements Initializable {
         series3.getData().add(new XYChart.Data(2, 45));
         series3.getData().add(new XYChart.Data(1, 44));
        
-       
-       
-       
-       
-       
-       
+        
         lineChartData.addAll(series,series3);
         graph.setCreateSymbols(true); 
         graph.setData(lineChartData);
@@ -139,7 +151,9 @@ public class FXMLDocumentController implements Initializable {
             series.getData().add(new XYChart.Data(47, 23, 3.8));
 //        } 
          lineChartData.add(series);
-         buble.setData(lineChartData);          
+         buble.setData(lineChartData);    
+         
+         
     }
     
     public void salir(){
