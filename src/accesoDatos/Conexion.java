@@ -259,9 +259,5 @@ public class Conexion {
             }
         }
         return resultado;
-    }
-    
-    
-    
-    
+    } 
 }

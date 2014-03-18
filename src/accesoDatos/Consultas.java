@@ -76,12 +76,12 @@ public class Consultas {
     {
         String where = "";
         
-        where += "where 1 = 1";
+        where += "where 1 = 1\n";
         
         int i;
         for(i=0; i<tablaSubCon.length; i++){
             
-            where += " and " + id_tablaSubCon[i] + " in (select "+ id_tablaSubCon[i] +" from "+ tablaSubCon[i] +" where "+ tablaSubCon[i]+ "."+ id_tablaSubCon[i] +" = "+valores[i]+") \n";
+            where += "and " + id_tablaSubCon[i] + " in (select "+ id_tablaSubCon[i] +" from "+ tablaSubCon[i] +" where "+ tablaSubCon[i]+ "."+ id_tablaSubCon[i] +" = "+valores[i]+") \n";
             
         }      
         return where;

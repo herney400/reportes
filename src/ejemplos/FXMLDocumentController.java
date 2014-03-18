@@ -68,33 +68,33 @@ public class FXMLDocumentController implements Initializable {
         assert combo_tipo != null : "fx:id=\"combo_tipo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
         ObservableList<String> optionsTipo = FXCollections.observableArrayList("consolidado", "promedio");
         combo_tipo.setItems(optionsTipo);
-        combo_tipo.getSelectionModel().selectFirst();
+        combo_tipo.getSelectionModel().selectLast();
         
         assert tipo_filtro != null : "fx:id=\"tipo_filtro\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
         ObservableList<String> options = FXCollections.observableArrayList("ciudad", "cliente", "empresa");
         tipo_filtro.setItems(options);
-        tipo_filtro.getSelectionModel().selectFirst();
+        tipo_filtro.getSelectionModel().selectLast();
         
         assert combo != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";      
         ObservableList<String> datosComboValues=con.LlenarCommbo("select ciudad from ciudad order by id_ciudad");
         datosComboValues.add("Todos");
         combo.getItems().clear();
         combo.setItems(datosComboValues);
-        combo.getSelectionModel().selectFirst();        
+        combo.getSelectionModel().selectLast();        
         
         assert combo_empresa != null : "fx:id=\"combo_empresa\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";      
         ObservableList<String> datosComboEmpresa=con.LlenarCommbo("select empresa from empresa order by id_empresa");
         datosComboEmpresa.add("Todos");
         combo_empresa.getItems().clear();
         combo_empresa.setItems(datosComboEmpresa);
-        combo_empresa.getSelectionModel().selectFirst();
+        combo_empresa.getSelectionModel().selectLast();
         
         assert combo_medida != null : "fx:id=\"combo_medida\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";      
         ObservableList<String> datosComboMedida=con.LlenarCommbo("select medida from medida order by id_medida");
         datosComboMedida.add("Todos");
         combo_medida.getItems().clear();
         combo_medida.setItems(datosComboMedida);
-        combo_medida.getSelectionModel().selectFirst();
+        combo_medida.getSelectionModel().selectLast();
         
         assert combo_franja != null : "fx:id=\"combo_franja\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";      
         ObservableList<String> datosComboFranja=con.LlenarCommbo("select distinct (franja_horaria) from tiempo");
@@ -103,10 +103,6 @@ public class FXMLDocumentController implements Initializable {
         combo_franja.setItems(datosComboFranja);
         combo_franja.getSelectionModel().selectLast();
     }  
-    
-    @FXML private void llenarFranja(ActionEvent e){
-        
-    }
     
     @FXML private void generarReporte(ActionEvent E){        
         
@@ -125,7 +121,7 @@ public class FXMLDocumentController implements Initializable {
             tablaSubConWhere.add("ciudad");
             id_tablaSubConWhere.add("id_ciudad");
             ObservableList<String> datosComboValues=con.LlenarCommbo("select id_ciudad from ciudad order by id_ciudad");            
-            valoresWhere.add(datosComboValues.get(1));
+            valoresWhere.add(datosComboValues.get(combo.getSelectionModel().getSelectedIndex()));
         }
         
         if(combo_empresa.getValue().equals("Todos"))
@@ -136,7 +132,7 @@ public class FXMLDocumentController implements Initializable {
              tablaSubConWhere.add("empresa");
              id_tablaSubConWhere.add("id_empresa");
              ObservableList<String> datosComboEmpresa=con.LlenarCommbo("select id_empresa from empresa order by id_empresa");
-             valoresWhere.add(datosComboEmpresa.get(1));
+             valoresWhere.add(datosComboEmpresa.get(combo_empresa.getSelectionModel().getSelectedIndex()));
         }
         
         if(combo_medida.getValue().equals("Todos"))
@@ -147,7 +143,7 @@ public class FXMLDocumentController implements Initializable {
              tablaSubConWhere.add("medida");
              id_tablaSubConWhere.add("id_medida");
              ObservableList<String> datosComboMedida=con.LlenarCommbo("select id_medida from medida order by id_medida");
-             valoresWhere.add(datosComboMedida.get(1));
+             valoresWhere.add(datosComboMedida.get(combo_medida.getSelectionModel().getSelectedIndex()));
         }
         
         if(combo_franja.getValue().equals("Todos"))
@@ -167,7 +163,8 @@ public class FXMLDocumentController implements Initializable {
         valoresWhereA = valoresWhere.toArray(valoresWhereA);
         
         String SQL = "";
-        SQL += consul.generarSQL(combo_tipo.getValue().toString(), tipo_filtro.getValue().toString(), "id_"+tipo_filtro.getValue().toString(), tipo_filtro.getValue().toString(), tablaSubConWhereA, id_tablaSubConWhereA, valoresWhereA);
+        SQL += consul.generarSQL(combo_tipo.getValue().toString().toUpperCase(), tipo_filtro.getValue().toString(), "id_"+tipo_filtro.getValue().toString(), tipo_filtro.getValue().toString(), tablaSubConWhereA, id_tablaSubConWhereA, valoresWhereA);
+        System.out.print(SQL);
         
         ObservableList<PieChart.Data> pieChartData = con.EjecutarConsultaPieChart(SQL);                
     
