@@ -7,6 +7,7 @@
 package ejemplos;
 
 import accesoDatos.Conexion;
+import accesoDatos.Consultas;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 
 import java.net.URL;
@@ -51,8 +52,11 @@ public class FXMLDocumentController implements Initializable {
     //@FXML private LineChart<String, Number> graph;
     
     //Consultas ComboBox
-    @FXML private ComboBox comboBox_Franja;
     @FXML private ComboBox tipo_filtro;
+    @FXML private ComboBox combo_empresa;
+    @FXML private ComboBox combo_medida;
+    @FXML private ComboBox combo_franja;
+    @FXML private ComboBox combo_tipo;
     
     
     @Override
@@ -61,17 +65,43 @@ public class FXMLDocumentController implements Initializable {
         
         Conexion con = new Conexion();         
         
+        assert combo_tipo != null : "fx:id=\"combo_tipo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+        ObservableList<String> optionsTipo = FXCollections.observableArrayList("consolidado", "promedio");
+        combo_tipo.setItems(optionsTipo);
+        combo_tipo.getSelectionModel().selectFirst();
+        
+        assert tipo_filtro != null : "fx:id=\"tipo_filtro\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+        ObservableList<String> options = FXCollections.observableArrayList("ciudad", "cliente", "empresa");
+        tipo_filtro.setItems(options);
+        tipo_filtro.getSelectionModel().selectFirst();
+        
         assert combo != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";      
         ObservableList<String> datosComboValues=con.LlenarCommbo("select ciudad from ciudad order by id_ciudad");
+        datosComboValues.add("Todos");
         combo.getItems().clear();
-        combo.getItems().add("Todos");
         combo.setItems(datosComboValues);
         combo.getSelectionModel().selectFirst();        
         
-        assert tipo_filtro != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
-        ObservableList<String> options = FXCollections.observableArrayList("ciudad", "cliente", "empresa");
-        tipo_filtro.setItems(options);
-          
+        assert combo_empresa != null : "fx:id=\"combo_empresa\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";      
+        ObservableList<String> datosComboEmpresa=con.LlenarCommbo("select empresa from empresa order by id_empresa");
+        datosComboEmpresa.add("Todos");
+        combo_empresa.getItems().clear();
+        combo_empresa.setItems(datosComboEmpresa);
+        combo_empresa.getSelectionModel().selectFirst();
+        
+        assert combo_medida != null : "fx:id=\"combo_medida\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";      
+        ObservableList<String> datosComboMedida=con.LlenarCommbo("select medida from medida order by id_medida");
+        datosComboMedida.add("Todos");
+        combo_medida.getItems().clear();
+        combo_medida.setItems(datosComboMedida);
+        combo_medida.getSelectionModel().selectFirst();
+        
+        assert combo_franja != null : "fx:id=\"combo_franja\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";      
+        ObservableList<String> datosComboFranja=con.LlenarCommbo("select distinct (franja_horaria) from tiempo");
+        datosComboFranja.add("Todos");
+        combo_franja.getItems().clear();
+        combo_franja.setItems(datosComboFranja);
+        combo_franja.getSelectionModel().selectLast();
     }  
     
     @FXML private void llenarFranja(ActionEvent e){
@@ -80,14 +110,68 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML private void generarReporte(ActionEvent E){        
         
-        Conexion con = new Conexion();        
-        ObservableList<PieChart.Data> pieChartData = con.EjecutarConsultaPieChart("select sum(cast(total_consumo as numeric)) as consumo, (select ciudad from ciudad where ciudad.id_ciudad = historico_consumo.id_ciudad) as ciudad\n" +
-                                                                                  "from historico_consumo\n" +
-                                                                                  "group by ciudad");                
-
+        Conexion con = new Conexion();
+        Consultas consul = new Consultas();
         
-        mibarchar.setData(pieChartData); 
+        ArrayList<String> tablaSubConWhere = new ArrayList();
+        ArrayList<String> id_tablaSubConWhere = new ArrayList();
+        ArrayList<String> valoresWhere = new ArrayList();
         
+        if(combo.getValue().equals("Todos"))
+        {
+        }
+        else
+        {
+            tablaSubConWhere.add("ciudad");
+            id_tablaSubConWhere.add("id_ciudad");
+            ObservableList<String> datosComboValues=con.LlenarCommbo("select id_ciudad from ciudad order by id_ciudad");            
+            valoresWhere.add(datosComboValues.get(1));
+        }
+        
+        if(combo_empresa.getValue().equals("Todos"))
+        {
+        }
+        else
+        {
+             tablaSubConWhere.add("empresa");
+             id_tablaSubConWhere.add("id_empresa");
+             ObservableList<String> datosComboEmpresa=con.LlenarCommbo("select id_empresa from empresa order by id_empresa");
+             valoresWhere.add(datosComboEmpresa.get(1));
+        }
+        
+        if(combo_medida.getValue().equals("Todos"))
+        {
+        }
+        else
+        {
+             tablaSubConWhere.add("medida");
+             id_tablaSubConWhere.add("id_medida");
+             ObservableList<String> datosComboMedida=con.LlenarCommbo("select id_medida from medida order by id_medida");
+             valoresWhere.add(datosComboMedida.get(1));
+        }
+        
+        if(combo_franja.getValue().equals("Todos"))
+        {
+        }
+        else
+        {
+        }
+        
+        String[] tablaSubConWhereA = new String[tablaSubConWhere.size()];
+        tablaSubConWhereA = tablaSubConWhere.toArray(tablaSubConWhereA);
+        
+        String [] id_tablaSubConWhereA = new String[id_tablaSubConWhere.size()];
+        id_tablaSubConWhereA = id_tablaSubConWhere.toArray(id_tablaSubConWhereA);
+        
+        String [] valoresWhereA = new String[valoresWhere.size()];
+        valoresWhereA = valoresWhere.toArray(valoresWhereA);
+        
+        String SQL = "";
+        SQL += consul.generarSQL(combo_tipo.getValue().toString(), tipo_filtro.getValue().toString(), "id_"+tipo_filtro.getValue().toString(), tipo_filtro.getValue().toString(), tablaSubConWhereA, id_tablaSubConWhereA, valoresWhereA);
+        
+        ObservableList<PieChart.Data> pieChartData = con.EjecutarConsultaPieChart(SQL);                
+    
+        mibarchar.setData(pieChartData);      
     }
     
     @FXML private void reporteLine(ActionEvent E){
@@ -155,16 +239,5 @@ public class FXMLDocumentController implements Initializable {
     
     public void salir(){
         System.exit(0);
-    }
-    
-    public void setData(){
-        Conexion con = new Conexion();
-        ArrayList<String> rs = con.EjecutarConsultaComboBox("select distinct franja_horaria as franja from tiempo;");
-        comboBox_Franja = new ComboBox();
-        
-        for(int i = 0; i<rs.size(); i++)
-        {
-            comboBox_Franja.getItems().add(rs.get(i));
-        }
     }
 }

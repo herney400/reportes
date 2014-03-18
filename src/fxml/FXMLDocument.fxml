@@ -38,7 +38,7 @@
                                   <children>
                                     <GridPane fx:id="gridpane" layoutX="7.0" layoutY="14.0" prefHeight="181.0" prefWidth="375.0">
                                       <children>
-                                        <ComboBox fx:id="combo" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                        <ComboBox fx:id="combo" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                           <items>
                                             <FXCollections fx:factory="observableArrayList">
                                               <String fx:value="Item 1" />
@@ -47,8 +47,8 @@
                                             </FXCollections>
                                           </items>
                                         </ComboBox>
-                                        <Label text="Ciudades:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                        <ComboBox prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <Label text="Ciudades:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <ComboBox fx:id="combo_empresa" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                           <items>
                                             <FXCollections fx:factory="observableArrayList">
                                               <String fx:value="Item 1" />
@@ -57,8 +57,8 @@
                                             </FXCollections>
                                           </items>
                                         </ComboBox>
-                                        <Label text="Empresas:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                        <ComboBox prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                        <Label text="Empresas:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <ComboBox fx:id="combo_medida" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                           <items>
                                             <FXCollections fx:factory="observableArrayList">
                                               <String fx:value="Item 1" />
@@ -67,7 +67,7 @@
                                             </FXCollections>
                                           </items>
                                         </ComboBox>
-                                        <ComboBox prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                        <ComboBox fx:id="combo_franja" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                           <items>
                                             <FXCollections fx:factory="observableArrayList">
                                               <String fx:value="Item 1" />
@@ -76,10 +76,20 @@
                                             </FXCollections>
                                           </items>
                                         </ComboBox>
-                                        <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                                        <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                                        <Label text="Tipo de filtro:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                        <ComboBox fx:id="tipo_filtro" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <Label text="Medida:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                        <Label text="Franja Horaria:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                        <Label text="Tipo de filtro:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <ComboBox fx:id="tipo_filtro" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                              <String fx:value="Item 1" />
+                                              <String fx:value="Item 2" />
+                                              <String fx:value="Item 3" />
+                                            </FXCollections>
+                                          </items>
+                                        </ComboBox>
+                                        <Label text="Tipo de consulta:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <ComboBox fx:id="combo_tipo" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                           <items>
                                             <FXCollections fx:factory="observableArrayList">
                                               <String fx:value="Item 1" />
@@ -94,6 +104,7 @@
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                       </columnConstraints>
                                       <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
