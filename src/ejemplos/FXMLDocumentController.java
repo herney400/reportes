@@ -47,21 +47,31 @@ public class FXMLDocumentController implements Initializable {
     @FXML private NumberAxis y;
     @FXML private ComboBox<String> combo;
     @FXML private GridPane gridpane;
+    @FXML private DatePicker dp;
     //@FXML private LineChart<String, Number> graph;
     
     //Consultas ComboBox
-    @FXML private ComboBox comboBox_Franja;    
-    @FXML private  DatePicker dp;
+    @FXML private ComboBox comboBox_Franja;
+    @FXML private ComboBox tipo_filtro;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
+        dp = new DatePicker(Locale.ENGLISH);
         
-        assert combo != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
-       // assert gridpane != null : "fx:id=\"dp\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
-    //    dp.getStylesheets().add("/estilos/DatePicker.css");
-      dp=  new DatePicker(Locale.ENGLISH);
-         
-         gridpane.add(dp, 0, 0);
+        Conexion con = new Conexion();         
+        
+        assert combo != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";      
+        ObservableList<String> datosComboValues=con.LlenarCommbo("select ciudad from ciudad order by id_ciudad");
+        combo.getItems().clear();
+        combo.getItems().add("Todos");
+        combo.setItems(datosComboValues);
+        combo.getSelectionModel().selectFirst();        
+        
+        assert tipo_filtro != null : "fx:id=\"combo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+        ObservableList<String> options = FXCollections.observableArrayList("ciudad", "cliente", "empresa");
+        tipo_filtro.setItems(options);
+          
     }  
     
     @FXML private void llenarFranja(ActionEvent e){
@@ -74,9 +84,8 @@ public class FXMLDocumentController implements Initializable {
         ObservableList<PieChart.Data> pieChartData = con.EjecutarConsultaPieChart("select sum(cast(total_consumo as numeric)) as consumo, (select ciudad from ciudad where ciudad.id_ciudad = historico_consumo.id_ciudad) as ciudad\n" +
                                                                                   "from historico_consumo\n" +
                                                                                   "group by ciudad");                
-        combo.getItems().clear();
-        ObservableList<String> datosCombo=con.llenarCommbo("select ciudad from ciudad");
-        combo.setItems(datosCombo);
+
+        
         mibarchar.setData(pieChartData); 
         
     }
@@ -85,9 +94,7 @@ public class FXMLDocumentController implements Initializable {
         ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();  
         LineChart.Series<Double, Double> series = new LineChart.Series<Double, Double>(); 
         LineChart.Series<Double, Double> series3 = new LineChart.Series<Double, Double>();
-//       for (double i = 0; i<100; i=i+0.1){
-//            series.getData().add(new XYChart.Data<Double, Double>(i, (i*2)-6));
-//        }        
+       
         series.setName("Portfolio 1");
         series.getData().add(new XYChart.Data(1, 23));
         series.getData().add(new XYChart.Data(2, 14));

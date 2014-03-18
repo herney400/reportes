@@ -19,7 +19,7 @@ import javafx.scene.chart.PieChart;
  */
 public class Conexion {
     
-    static String url = "jdbc:postgresql://localhost/postgres";
+    static String url = "jdbc:postgresql://localhost/trabajodegrado";
     static String user = "postgres";
     static String password = "tesis";
     
@@ -215,10 +215,10 @@ public class Conexion {
         }
         return resultado;
     }
-    public ObservableList llenarCommbo(String consulta){
     
-    ObservableList resultado = FXCollections.observableArrayList();
-        
+    public ObservableList LlenarCommbo(String consulta){
+    
+        ObservableList resultado = FXCollections.observableArrayList();        
         Connection con = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -258,11 +258,7 @@ public class Conexion {
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
-    
-    
-    
-    return resultado;
-    
+        return resultado;
     }
     
     
