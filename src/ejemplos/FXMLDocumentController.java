@@ -9,16 +9,20 @@ package ejemplos;
 import accesoDatos.Conexion;
 import accesoDatos.Consultas;
 import eu.schudt.javafx.controls.calendar.DatePicker;
+import java.awt.event.MouseEvent;
+import static java.lang.Math.cos;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.animation.TranslateTransitionBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -29,6 +33,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 /**
  *
@@ -49,6 +54,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML private ComboBox<String> combo;
     @FXML private GridPane gridpane;
     @FXML private DatePicker dp;
+    private double cos;
+  private double sin;
+   static final Duration ANIMATION_DURATION = new Duration(500);
+  static final double ANIMATION_DISTANCE = 0.15;
     //@FXML private LineChart<String, Number> graph;
     
     //Consultas ComboBox
@@ -234,7 +243,6 @@ public class FXMLDocumentController implements Initializable {
          
     }
     
-    public void salir(){
-        System.exit(0);
-    }
+    
 }
+
