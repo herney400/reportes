@@ -67,14 +67,14 @@ public class FXMLDocumentController implements Initializable {
     @FXML private ComboBox combo_medida;
     @FXML private ComboBox combo_franja;
     @FXML private ComboBox combo_tipo;
-    
+    @FXML private Label caption ;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dp = new DatePicker(Locale.ENGLISH);
         
         Conexion con = new Conexion();         
-        assert mibarchar != null : "fx:id=\"PieChart\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+        assert mibarchar != null : "fx:id=\"mibarchar\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
         assert combo_tipo != null : "fx:id=\"combo_tipo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
         ObservableList<String> optionsTipo = FXCollections.observableArrayList("consolidado", "promedio");
         combo_tipo.setItems(optionsTipo);
@@ -177,28 +177,41 @@ public class FXMLDocumentController implements Initializable {
         System.out.print(SQL);
         
         ObservableList<PieChart.Data> pieChartData = con.EjecutarConsultaPieChart(SQL);                
-        
-    final Label caption = new Label("");
-    caption.setTextFill(Color.DARKORANGE);
-    caption.setStyle("-fx-font: 24 arial;");
-
-        for (final PieChart.Data data : mibarchar.getData()) {
-            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-                    @Override public void handle(MouseEvent e) {
-                        caption.setTranslateX(e.getSceneX());
-                        caption.setTranslateY(e.getSceneY());
-                        caption.setText(String.valueOf(data.getPieValue()) + "%");
-                     }
-                });
-        }
-        
    
+
         
-        
+         
         
         mibarchar.setData(pieChartData);      
     }
+    public void evento(){
     
+      
+   // final Label caption = new Label("");
+    caption.setTextFill(Color.DARKORANGE);
+    caption.setStyle("-fx-font: 29 arial;");
+    
+    assert caption != null : "fx:id=\"caption\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";  
+    
+    
+        for (final PieChart.Data data : mibarchar.getData()) {
+    
+            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED , new EventHandler<MouseEvent>() {
+    
+                @Override public void handle(MouseEvent e) {
+                        
+                        caption.setTranslateX(e.getSceneX());                        
+                        caption.setTranslateY(e.getSceneY());
+                        
+                        System.out.println("=======>"+data.getPieValue());
+                        caption.setText(String.valueOf(data.getPieValue()) + "%");
+                        
+                     }
+                });
+        }
+    
+    
+    }
   
     
     @FXML private void reporteLine(ActionEvent E){

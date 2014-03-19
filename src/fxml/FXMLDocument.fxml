@@ -117,6 +117,12 @@
                                     <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   </rowConstraints>
                                 </GridPane>
+                                <Label fx:id="caption" layoutX="380.0" layoutY="113.0" text="Label" />
+                                <TextField layoutX="435.0" layoutY="118.0" prefWidth="200.0">
+                                  <tooltip>
+                                    <Tooltip text="Empty Tooltip" />
+                                  </tooltip>
+                                </TextField>
                               </children>
                             </AnchorPane>
                           </content>
