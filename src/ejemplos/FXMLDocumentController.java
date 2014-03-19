@@ -9,20 +9,17 @@ package ejemplos;
 import accesoDatos.Conexion;
 import accesoDatos.Consultas;
 import eu.schudt.javafx.controls.calendar.DatePicker;
-import java.awt.event.MouseEvent;
-import static java.lang.Math.cos;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransitionBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -32,8 +29,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import javax.sound.midi.ControllerEventListener;
+import javax.sound.midi.ShortMessage;
 
 /**
  *
@@ -73,7 +74,7 @@ public class FXMLDocumentController implements Initializable {
         dp = new DatePicker(Locale.ENGLISH);
         
         Conexion con = new Conexion();         
-        
+        assert mibarchar != null : "fx:id=\"PieChart\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
         assert combo_tipo != null : "fx:id=\"combo_tipo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
         ObservableList<String> optionsTipo = FXCollections.observableArrayList("consolidado", "promedio");
         combo_tipo.setItems(optionsTipo);
@@ -176,9 +177,29 @@ public class FXMLDocumentController implements Initializable {
         System.out.print(SQL);
         
         ObservableList<PieChart.Data> pieChartData = con.EjecutarConsultaPieChart(SQL);                
-    
+        
+    final Label caption = new Label("");
+    caption.setTextFill(Color.DARKORANGE);
+    caption.setStyle("-fx-font: 24 arial;");
+
+        for (final PieChart.Data data : mibarchar.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+                    @Override public void handle(MouseEvent e) {
+                        caption.setTranslateX(e.getSceneX());
+                        caption.setTranslateY(e.getSceneY());
+                        caption.setText(String.valueOf(data.getPieValue()) + "%");
+                     }
+                });
+        }
+        
+   
+        
+        
+        
         mibarchar.setData(pieChartData);      
     }
+    
+  
     
     @FXML private void reporteLine(ActionEvent E){
         ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();  
@@ -242,7 +263,9 @@ public class FXMLDocumentController implements Initializable {
          
          
     }
-    
-    
+
+   
+   
+   
 }
 

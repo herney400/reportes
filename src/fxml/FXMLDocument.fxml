@@ -19,7 +19,7 @@
               <children>
                 <ScrollPane id="ScrollPane" layoutX="15.0" layoutY="14.0" prefHeight="327.0" prefViewportHeight="360.0" prefViewportWidth="864.0" prefWidth="868.9998779296875">
                   <content>
-                    <PieChart id="PieChart" fx:id="mibarchar" prefHeight="329.0" prefWidth="853.0" title="Consumo" />
+                    <PieChart id="PieChart" fx:id="mibarchar" animated="true" legendSide="RIGHT" onMouseEntered="#evento" prefHeight="329.0" prefWidth="853.0" title="Consumo" />
                   </content>
                 </ScrollPane>
                 <Accordion expandedPane="$null" layoutX="16.0" layoutY="331.0" />
