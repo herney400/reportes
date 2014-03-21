@@ -136,91 +136,290 @@
                     </TabPane>
                   </items>
                 </SplitPane>
-                <Button id="boton" fx:id="botonge" layoutX="365.0" layoutY="557.0" mnemonicParsing="false" onAction="#generarReporte" prefWidth="111.0" text="Generar" />
+                <ToolBar fx:id="toolbar" layoutX="16.0" layoutY="562.0" maxWidth="-1.0" prefWidth="871.0">
+                  <items>
+                    <Button fx:id="botonge" mnemonicParsing="false" onAction="#generarReporte" prefWidth="82.0" text="Generar" translateX="435.0" />
+                  </items>
+                  <stylesheets>
+                    <URL value="@../estilos/estilos.css" />
+                  </stylesheets>
+                </ToolBar>
               </children>
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Historico Pagos">
+        <Tab text="Historico Consumo">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="655.0">
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="876.0">
               <children>
-                <SplitPane dividerPositions="0.5746478873239437" focusTraversable="true" layoutX="2.0" layoutY="5.0" orientation="VERTICAL" prefHeight="712.0" prefWidth="888.0">
+                <ScrollPane id="ScrollPane" layoutX="15.0" layoutY="14.0" prefHeight="327.0" prefViewportHeight="360.0" prefViewportWidth="864.0" prefWidth="868.9998779296875">
+                  <content>
+                    <PieChart id="PieChart" animated="true" legendSide="RIGHT" onMouseEntered="#evento" prefHeight="329.0" prefWidth="853.0" title="Consumo" />
+                  </content>
+                </ScrollPane>
+                <Accordion expandedPane="$null" layoutX="16.0" layoutY="331.0" />
+                <SplitPane id="SplitPane" layoutX="16.0" layoutY="353.0" prefHeight="197.0">
                   <items>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="380.0" prefWidth="881.0">
-                      <children>
-                        <ScrollPane id="ScrollPane" layoutX="5.0" layoutY="5.0" prefHeight="372.0" prefViewportHeight="350.0" prefViewportWidth="759.0" prefWidth="875.0">
+                    <TabPane prefHeight="251.0" prefWidth="869.0" tabClosingPolicy="UNAVAILABLE">
+                      <tabs>
+                        <Tab text="Untitled Tab 1">
                           <content>
-                            <LineChart fx:id="graph" prefHeight="372.0" prefWidth="758.0" title="Pagos">
-                              <xAxis>
-                                <NumberAxis fx:id="xAxis" label="Values for X-Axis" lowerBound="0.0" tickUnit="1.0" upperBound="3.0" />
-                              </xAxis>
-                              <yAxis>
-                                <NumberAxis fx:id="yAxis" label="Values for Y-Axis" lowerBound="0.0" tickUnit="1.0" upperBound="3.0" />
-                              </yAxis>
-                            </LineChart>
+                            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="161.0" prefWidth="869.0">
+                              <children>
+                                <GridPane id="gridpane" layoutX="14.0" layoutY="23.0" prefHeight="95.0" prefWidth="333.0">
+                                  <children>
+                                    <ComboBox id="combo_empresa" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                    <Label text="Empresas:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label text="Tipo de filtro:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <ComboBox id="tipo_filtro" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                    <Label text="Tipo de consulta:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <ComboBox id="combo_tipo" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                                <GridPane layoutX="440.0" layoutY="18.0" prefWidth="320.0">
+                                  <children>
+                                    <Label text="Ciudades:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label text="Medida:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Label text="Franja Horaria:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <ComboBox id="combo" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                    <ComboBox id="combo_medida" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                    <ComboBox id="combo_franja" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                                <Label id="caption" layoutX="380.0" layoutY="113.0" text="Label" />
+                                <TextField layoutX="435.0" layoutY="118.0" prefWidth="200.0">
+                                  <tooltip>
+                                    <Tooltip text="Empty Tooltip" />
+                                  </tooltip>
+                                </TextField>
+                              </children>
+                            </AnchorPane>
                           </content>
-                        </ScrollPane>
-                      </children>
-                    </AnchorPane>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="895.0" />
+                        </Tab>
+                        <Tab text="Untitled Tab 2">
+                          <content>
+                            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                      </tabs>
+                    </TabPane>
                   </items>
                 </SplitPane>
-                <Button id="" fx:id="blinechart" layoutX="395.0" layoutY="729.0" mnemonicParsing="false" onAction="#reporteLine" prefWidth="107.0" text="Generar" />
+                <ToolBar id="toolbar" layoutX="16.0" layoutY="562.0" maxWidth="-1.0" prefWidth="871.0">
+                  <items>
+                    <Button id="botonge" mnemonicParsing="false" onAction="#generarReporte" prefWidth="82.0" text="Generar" translateX="435.0" />
+                  </items>
+                  <stylesheets>
+                    <URL value="@../estilos/estilos.css" />
+                  </stylesheets>
+                </ToolBar>
               </children>
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Historico Precio">
+        <Tab text="Historico Consumo">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="557.0" prefWidth="776.0">
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="876.0">
               <children>
-                <SplitPane dividerPositions="0.5423728813559322" focusTraversable="true" layoutX="0.0" layoutY="0.0" orientation="VERTICAL" prefHeight="710.0" prefWidth="911.0">
+                <ScrollPane id="ScrollPane" layoutX="15.0" layoutY="14.0" prefHeight="327.0" prefViewportHeight="360.0" prefViewportWidth="864.0" prefWidth="868.9998779296875">
+                  <content>
+                    <PieChart id="PieChart" animated="true" legendSide="RIGHT" onMouseEntered="#evento" prefHeight="329.0" prefWidth="853.0" title="Consumo" />
+                  </content>
+                </ScrollPane>
+                <Accordion expandedPane="$null" layoutX="16.0" layoutY="331.0" />
+                <SplitPane id="SplitPane" layoutX="16.0" layoutY="353.0" prefHeight="197.0">
                   <items>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="380.0" prefWidth="909.0">
-                      <children>
-                        <ScrollPane id="ScrollPane" layoutX="6.0" layoutY="4.0" prefHeight="359.0" prefViewportHeight="389.0" prefViewportWidth="742.0" prefWidth="880.0">
+                    <TabPane prefHeight="251.0" prefWidth="869.0" tabClosingPolicy="UNAVAILABLE">
+                      <tabs>
+                        <Tab text="Untitled Tab 1">
                           <content>
-                            <BubbleChart fx:id="buble" prefHeight="389.0" prefWidth="679.0" style=".chart {&#10;    -fx-padding: 10px;&#10;}&#10;" title="Precio">
-                              <xAxis>
-                                <NumberAxis label="Values for X-Axis" lowerBound="0.0" tickUnit="1.0" upperBound="3.0" />
-                              </xAxis>
-                              <yAxis>
-                                <NumberAxis label="Values for Y-Axis" lowerBound="0.0" tickUnit="1.0" upperBound="3.0" />
-                              </yAxis>
-                            </BubbleChart>
+                            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="161.0" prefWidth="869.0">
+                              <children>
+                                <GridPane id="gridpane" layoutX="14.0" layoutY="23.0" prefHeight="95.0" prefWidth="333.0">
+                                  <children>
+                                    <ComboBox id="combo_empresa" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                    <Label text="Empresas:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label text="Tipo de filtro:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <ComboBox id="tipo_filtro" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                    <Label text="Tipo de consulta:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <ComboBox id="combo_tipo" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                                <GridPane layoutX="440.0" layoutY="18.0" prefWidth="320.0">
+                                  <children>
+                                    <Label text="Ciudades:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label text="Medida:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Label text="Franja Horaria:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <ComboBox id="combo" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                    <ComboBox id="combo_medida" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                    <ComboBox id="combo_franja" prefHeight="21.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                      <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                        </FXCollections>
+                                      </items>
+                                    </ComboBox>
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                                <Label id="caption" layoutX="380.0" layoutY="113.0" text="Label" />
+                                <TextField layoutX="435.0" layoutY="118.0" prefWidth="200.0">
+                                  <tooltip>
+                                    <Tooltip text="Empty Tooltip" />
+                                  </tooltip>
+                                </TextField>
+                              </children>
+                            </AnchorPane>
                           </content>
-                        </ScrollPane>
-                      </children>
-                    </AnchorPane>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="256.0" prefWidth="774.0" />
+                        </Tab>
+                        <Tab text="Untitled Tab 2">
+                          <content>
+                            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                      </tabs>
+                    </TabPane>
                   </items>
                 </SplitPane>
-                <Button fx:id="botonbuble" contentDisplay="CENTER" layoutX="368.0" layoutY="729.0" mnemonicParsing="false" onAction="#reportePrecio" prefHeight="20.0" prefWidth="111.0" text="Generar" />
+                <ToolBar id="toolbar" layoutX="16.0" layoutY="562.0" maxWidth="-1.0" prefWidth="871.0">
+                  <items>
+                    <Button id="botonge" mnemonicParsing="false" onAction="#generarReporte" prefWidth="82.0" text="Generar" translateX="435.0" />
+                  </items>
+                  <stylesheets>
+                    <URL value="@../estilos/estilos.css" />
+                  </stylesheets>
+                </ToolBar>
               </children>
             </AnchorPane>
           </content>
         </Tab>
       </tabs>
     </TabPane>
-    <MenuBar layoutX="0.0" layoutY="2.0" prefWidth="897.0">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Close" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Delete" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
+    <MenuBar fx:id="menubar" layoutX="0.0" layoutY="2.0" prefWidth="897.0" />
   </children>
 </AnchorPane>

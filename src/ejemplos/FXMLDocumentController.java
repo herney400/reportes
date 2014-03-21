@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,15 +29,24 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.CheckMenuItemBuilder;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuBuilder;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.MenuItemBuilder;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import javax.sound.midi.ControllerEventListener;
-import javax.sound.midi.ShortMessage;
 
 /**
  *
@@ -69,13 +80,24 @@ public class FXMLDocumentController implements Initializable {
     @FXML private ComboBox combo_franja;
     @FXML private ComboBox combo_tipo;
     @FXML private Label caption ;
+    @FXML private MenuBar  menubar;
     String drilldownCss="";
+    @FXML private ToolBar toolbar;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        assert toolbar != null : "fx:id=\"toolbar\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+        
         dp = new DatePicker(Locale.ENGLISH);
         drilldownCss = FXMLDocumentController.class.getResource("/estilos/DrilldownChart.css").toExternalForm();
-        Conexion con = new Conexion();         
+        
+        assert menubar != null : "fx:id=\"menubar\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+          menuBar();
+          guiPiechar();
+    }  
+    public void guiPiechar(){
+        Conexion con = new Conexion(); 
         assert mibarchar != null : "fx:id=\"mibarchar\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
+        
         assert combo_tipo != null : "fx:id=\"combo_tipo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
         ObservableList<String> optionsTipo = FXCollections.observableArrayList("consolidado", "promedio");
         combo_tipo.setItems(optionsTipo);
@@ -113,8 +135,10 @@ public class FXMLDocumentController implements Initializable {
         combo_franja.getItems().clear();
         combo_franja.setItems(datosComboFranja);
         combo_franja.getSelectionModel().selectLast();
-    }  
     
+    
+    
+    }
     @FXML private void generarReporte(ActionEvent E){        
         
         Conexion con = new Conexion();
@@ -186,34 +210,33 @@ public class FXMLDocumentController implements Initializable {
         mibarchar.setData(pieChartData);      
     }
     public void evento(){
-    
-      
+        
    // final Label caption = new Label("");
     caption.setTextFill(Color.DARKORANGE);
     caption.setStyle("-fx-font: 29 arial;");
     
-    assert caption != null : "fx:id=\"caption\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";  
-    
-    
+    assert caption != null : "fx:id=\"caption\" was not injected: check your FXML file 'FXMLDocumetn.fxml'."; 
         for (final PieChart.Data data : mibarchar.getData()) {
-    
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED , new EventHandler<MouseEvent>() {
-    
                 @Override public void handle(MouseEvent e) {
-                        
                         caption.setTranslateX(e.getSceneX());                        
                         caption.setTranslateY(e.getSceneY());
-                        
                         System.out.println("=======>"+data.getPieValue());
                         caption.setText(String.valueOf(data.getPieValue()) + "%");
-                        
                      }
                 });
         }
-    
-    
     }
   
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     @FXML private void reporteLine(ActionEvent E){
         ObservableList<XYChart.Series<Double, Double>> lineChartData = FXCollections.observableArrayList();  
@@ -278,7 +301,51 @@ public class FXMLDocumentController implements Initializable {
          
     }
 
-   
+   @FXML private void menuBar(){
+        
+         String styledToolBarCss = FXMLDocumentController.class.getResource("/fxml/FXMLDocument.fxml").toExternalForm();
+        
+             
+      toolbar.getStylesheets().add(styledToolBarCss);
+       
+       
+        final Label outputLabel = new Label(); 
+        MenuItem menu111 = MenuItemBuilder.create().text("blah").build();
+         final MenuItem menu112 = MenuItemBuilder.create().text("foo").build();
+         final CheckMenuItem menu113 = CheckMenuItemBuilder.create().text("Show \"foo\" item").selected(true).build();
+         menu113.selectedProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable valueModel) {
+                menu112.setVisible(menu113.isSelected());
+                System.err.println("MenuItem \"foo\" is now " + (menu112.isVisible() ? "" : "not") + " visible.");
+            }
+        });
+        Menu menu11 = MenuBuilder.create()
+                .text("Submenu 1")
+              //  .graphic(new ImageView(new Image(MenuSample.class.getResourceAsStream("menuInfo.png"))))
+                .items(menu111, menu112, menu113)
+                .build();
+        
+        // Options->Submenu 2 submenu
+        MenuItem menu121 = MenuItemBuilder.create().text("Item 1").build();
+        MenuItem menu122 = MenuItemBuilder.create().text("Item 2").build();
+        Menu menu12 = MenuBuilder.create().text("Submenu 2").items(menu121, menu122).build();
+
+        // Options->Change Text
+        final String change[] = {"Change Text", "Change Back"};
+        final MenuItem menu13 = MenuItemBuilder.create().text(change[0]).accelerator(KeyCombination.keyCombination("Shortcut+C")).build();
+        menu13.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                menu13.setText((menu13.getText().equals(change[0])) ? change[1] : change[0]);
+                outputLabel.setText(((MenuItem) t.getTarget()).getText() + " - action called");
+            }
+        });        
+        
+        // Options menu
+        Menu menu1 = MenuBuilder.create().text("Options").items(menu11, menu12, menu13).build();
+
+        menubar.getMenus().addAll(menu1);
+   }
    
    
 }

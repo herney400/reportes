@@ -1,4 +1,9 @@
- 
+#dark {
+    -fx-base: #333333;
+}
+#blue {
+    -fx-base: dodgerblue;
+} 
 .root{
      -fx-background-image: url("/imagenes/background.jpg");
     
