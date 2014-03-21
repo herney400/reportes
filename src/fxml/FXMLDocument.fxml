@@ -148,15 +148,10 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Historico Consumo">
+        <Tab text="Historico Precio">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="876.0">
               <children>
-                <ScrollPane id="ScrollPane" layoutX="15.0" layoutY="14.0" prefHeight="327.0" prefViewportHeight="360.0" prefViewportWidth="864.0" prefWidth="868.9998779296875">
-                  <content>
-                    <PieChart id="PieChart" animated="true" legendSide="RIGHT" onMouseEntered="#evento" prefHeight="329.0" prefWidth="853.0" title="Consumo" />
-                  </content>
-                </ScrollPane>
                 <Accordion expandedPane="$null" layoutX="16.0" layoutY="331.0" />
                 <SplitPane id="SplitPane" layoutX="16.0" layoutY="353.0" prefHeight="197.0">
                   <items>
@@ -273,12 +268,24 @@
                 </SplitPane>
                 <ToolBar id="toolbar" layoutX="16.0" layoutY="562.0" maxWidth="-1.0" prefWidth="871.0">
                   <items>
-                    <Button id="botonge" mnemonicParsing="false" onAction="#generarReporte" prefWidth="82.0" text="Generar" translateX="435.0" />
+                    <Button fx:id="botonHistorico" mnemonicParsing="false" onAction="#reporteLine" prefWidth="82.0" text="Generar" translateX="435.0" />
                   </items>
                   <stylesheets>
                     <URL value="@../estilos/estilos.css" />
                   </stylesheets>
                 </ToolBar>
+                <ScrollPane id="ScrollPane" layoutX="17.0" layoutY="14.0" prefHeight="324.0" prefViewportHeight="315.0" prefViewportWidth="856.0">
+                  <content>
+                    <LineChart id="LineChartNxN" fx:id="graph" prefHeight="309.0" prefWidth="835.0">
+                      <xAxis>
+                        <NumberAxis side="BOTTOM" />
+                      </xAxis>
+                      <yAxis>
+                        <NumberAxis side="LEFT" />
+                      </yAxis>
+                    </LineChart>
+                  </content>
+                </ScrollPane>
               </children>
             </AnchorPane>
           </content>

@@ -86,7 +86,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         assert toolbar != null : "fx:id=\"toolbar\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
-        
+        assert graph != null : "fx:id=\"graph\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
         dp = new DatePicker(Locale.ENGLISH);
         drilldownCss = FXMLDocumentController.class.getResource("/estilos/DrilldownChart.css").toExternalForm();
         
