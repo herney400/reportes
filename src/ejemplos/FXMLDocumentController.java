@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -68,11 +69,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML private ComboBox combo_franja;
     @FXML private ComboBox combo_tipo;
     @FXML private Label caption ;
-    
+    String drilldownCss="";
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dp = new DatePicker(Locale.ENGLISH);
-        
+        drilldownCss = FXMLDocumentController.class.getResource("/estilos/DrilldownChart.css").toExternalForm();
         Conexion con = new Conexion();         
         assert mibarchar != null : "fx:id=\"mibarchar\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
         assert combo_tipo != null : "fx:id=\"combo_tipo\" was not injected: check your FXML file 'FXMLDocumetn.fxml'.";
@@ -180,7 +181,7 @@ public class FXMLDocumentController implements Initializable {
    
 
         
-         
+         ((Parent) mibarchar).getStylesheets().add(drilldownCss);
         
         mibarchar.setData(pieChartData);      
     }
